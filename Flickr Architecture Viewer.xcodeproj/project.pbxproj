@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		569A5C2229BFB7D5B0571821 /* Pods_Flickr_Architecture_Viewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F33E5EA693DC9471D1BC259 /* Pods_Flickr_Architecture_Viewer.framework */; };
 		9C426C371E8946600009065C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C426C361E8946600009065C /* AppDelegate.swift */; };
 		9C426C391E8946600009065C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C426C381E8946600009065C /* ViewController.swift */; };
 		9C426C3C1E8946600009065C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C426C3A1E8946600009065C /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5349A8B16C0CA29C72689710 /* Pods-Flickr Architecture Viewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flickr Architecture Viewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flickr Architecture Viewer/Pods-Flickr Architecture Viewer.release.xcconfig"; sourceTree = "<group>"; };
+		7F33E5EA693DC9471D1BC259 /* Pods_Flickr_Architecture_Viewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flickr_Architecture_Viewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C426C331E8946600009065C /* Flickr Architecture Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flickr Architecture Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C426C361E8946600009065C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C426C381E8946600009065C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		9C426C3D1E8946600009065C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C426C401E8946600009065C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C426C421E8946600009065C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B331202403A10476408AE5C0 /* Pods-Flickr Architecture Viewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flickr Architecture Viewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flickr Architecture Viewer/Pods-Flickr Architecture Viewer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				569A5C2229BFB7D5B0571821 /* Pods_Flickr_Architecture_Viewer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		962086752BD953D1A1C2F8F8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B331202403A10476408AE5C0 /* Pods-Flickr Architecture Viewer.debug.xcconfig */,
+				5349A8B16C0CA29C72689710 /* Pods-Flickr Architecture Viewer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9C426C2A1E8946600009065C = {
 			isa = PBXGroup;
 			children = (
 				9C426C351E8946600009065C /* Flickr Architecture Viewer */,
 				9C426C341E8946600009065C /* Products */,
+				962086752BD953D1A1C2F8F8 /* Pods */,
+				FAA110DED72F4C1AA77985FC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +80,14 @@
 			path = "Flickr Architecture Viewer";
 			sourceTree = "<group>";
 		};
+		FAA110DED72F4C1AA77985FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7F33E5EA693DC9471D1BC259 /* Pods_Flickr_Architecture_Viewer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9C426C451E8946600009065C /* Build configuration list for PBXNativeTarget "Flickr Architecture Viewer" */;
 			buildPhases = (
+				20AE75A46EC5A01910E36B27 /* [CP] Check Pods Manifest.lock */,
 				9C426C2F1E8946600009065C /* Sources */,
 				9C426C301E8946600009065C /* Frameworks */,
 				9C426C311E8946600009065C /* Resources */,
+				44127CF5E2B5A6475A5053D6 /* [CP] Embed Pods Frameworks */,
+				2EC290308601748A4FAE9F56 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,6 +158,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20AE75A46EC5A01910E36B27 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2EC290308601748A4FAE9F56 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Flickr Architecture Viewer/Pods-Flickr Architecture Viewer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		44127CF5E2B5A6475A5053D6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Flickr Architecture Viewer/Pods-Flickr Architecture Viewer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9C426C2F1E8946600009065C /* Sources */ = {
@@ -259,6 +334,7 @@
 		};
 		9C426C461E8946600009065C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B331202403A10476408AE5C0 /* Pods-Flickr Architecture Viewer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = WG95M4JP38;
@@ -272,6 +348,7 @@
 		};
 		9C426C471E8946600009065C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5349A8B16C0CA29C72689710 /* Pods-Flickr Architecture Viewer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = WG95M4JP38;
