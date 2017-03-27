@@ -70,14 +70,46 @@
 		9C426C351E8946600009065C /* Flickr Architecture Viewer */ = {
 			isa = PBXGroup;
 			children = (
+				9C426C4B1E895E980009065C /* Controllers */,
+				9C426C4A1E895E7E0009065C /* Custom Cells */,
+				9C426C491E895E630009065C /* Networking */,
+				9C426C481E895E5C0009065C /* Model */,
 				9C426C361E8946600009065C /* AppDelegate.swift */,
-				9C426C381E8946600009065C /* ViewController.swift */,
 				9C426C3A1E8946600009065C /* Main.storyboard */,
 				9C426C3D1E8946600009065C /* Assets.xcassets */,
 				9C426C3F1E8946600009065C /* LaunchScreen.storyboard */,
 				9C426C421E8946600009065C /* Info.plist */,
 			);
 			path = "Flickr Architecture Viewer";
+			sourceTree = "<group>";
+		};
+		9C426C481E895E5C0009065C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		9C426C491E895E630009065C /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		9C426C4A1E895E7E0009065C /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Custom Cells";
+			sourceTree = "<group>";
+		};
+		9C426C4B1E895E980009065C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9C426C381E8946600009065C /* ViewController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		FAA110DED72F4C1AA77985FC /* Frameworks */ = {
@@ -379,6 +411,7 @@
 				9C426C471E8946600009065C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
