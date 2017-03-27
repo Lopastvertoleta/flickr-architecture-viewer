@@ -15,6 +15,7 @@
 		9C426C4D1E895FE30009065C /* PhotosNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C426C4C1E895FE30009065C /* PhotosNetworking.swift */; };
 		9C426C4F1E8965940009065C /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C426C4E1E8965940009065C /* Photo.swift */; };
 		9C426C511E8972200009065C /* PhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C426C501E8972200009065C /* PhotosCollectionViewController.swift */; };
+		9C426C531E8976E40009065C /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C426C521E8976E40009065C /* PhotoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		9C426C4C1E895FE30009065C /* PhotosNetworking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosNetworking.swift; sourceTree = "<group>"; };
 		9C426C4E1E8965940009065C /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		9C426C501E8972200009065C /* PhotosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewController.swift; sourceTree = "<group>"; };
+		9C426C521E8976E40009065C /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		B331202403A10476408AE5C0 /* Pods-Flickr Architecture Viewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flickr Architecture Viewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flickr Architecture Viewer/Pods-Flickr Architecture Viewer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +108,7 @@
 		9C426C4A1E895E7E0009065C /* Custom Cells */ = {
 			isa = PBXGroup;
 			children = (
+				9C426C521E8976E40009065C /* PhotoCell.swift */,
 			);
 			name = "Custom Cells";
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C426C4F1E8965940009065C /* Photo.swift in Sources */,
+				9C426C531E8976E40009065C /* PhotoCell.swift in Sources */,
 				9C426C4D1E895FE30009065C /* PhotosNetworking.swift in Sources */,
 				9C426C511E8972200009065C /* PhotosCollectionViewController.swift in Sources */,
 				9C426C371E8946600009065C /* AppDelegate.swift in Sources */,

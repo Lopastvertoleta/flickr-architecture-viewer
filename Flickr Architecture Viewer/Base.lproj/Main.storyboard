@@ -18,19 +18,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="0.0" id="1Wv-iq-Xzr">
-                            <size key="itemSize" width="50" height="50"/>
+                            <size key="itemSize" width="167" height="157"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="H2O-oV-AFi">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="H2O-oV-AFi" customClass="PhotoCell" customModule="Flickr_Architecture_Viewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="167" height="157"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="167" height="157"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tdA-rB-5Jo">
+                                            <rect key="frame" x="0.0" y="0.0" width="167" height="157"/>
+                                        </imageView>
+                                    </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="tdA-rB-5Jo" firstAttribute="leading" secondItem="H2O-oV-AFi" secondAttribute="leading" id="1E3-mV-pJb"/>
+                                    <constraint firstItem="tdA-rB-5Jo" firstAttribute="top" secondItem="H2O-oV-AFi" secondAttribute="top" id="5hg-XU-Otx"/>
+                                    <constraint firstAttribute="bottom" secondItem="tdA-rB-5Jo" secondAttribute="bottom" id="8NU-0q-Gek"/>
+                                    <constraint firstAttribute="trailing" secondItem="tdA-rB-5Jo" secondAttribute="trailing" id="jDW-ke-Ice"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="photoImageView" destination="tdA-rB-5Jo" id="Upa-5Q-K3f"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -41,7 +55,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d4Y-fs-1Ym" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="826" y="123"/>
+            <point key="canvasLocation" x="824.79999999999995" y="122.78860569715144"/>
         </scene>
     </scenes>
 </document>
