@@ -58,6 +58,10 @@ class PhotosCollectionViewController: UICollectionViewController, UICollectionVi
         return CGSize(width: dimension, height: dimension)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return expanded ? 0 : 1
+    }
+    
     // MARK: UICollectionViewDelegate
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
