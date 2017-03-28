@@ -19,10 +19,19 @@ class PhotosNetworking {
     private let apiEndpoint = "https://api.flickr.com/services/rest/?method=flickr.photos."
     private let apiKey = "a34fea0febe0337dfce218f05c8c9e52"
     private let realm = try? Realm()
+    private let pageSize = 20
+    private var page: Int {
+        get {
+            guard let photos = realm?.objects(Photo.self) else { return 1 }
+            return Int(ceil(Double(photos.count / pageSize)))
+        }
+    }
+    private var needMore = true
+    
     static let shared = PhotosNetworking()
     
     private func makeRequestUrl(withMethod method: String, page: Int) -> String {
-        return "\(apiEndpoint)\(method)&page=\(page)&per_page=20&api_key=\(apiKey)&format=json&nojsoncallback=1&text=architecture"
+        return "\(apiEndpoint)\(method)&page=\(page)&per_page=\(pageSize)&api_key=\(apiKey)&format=json&nojsoncallback=1&text=architecture"
     }
     
     private func composeImageURLs(withPhoto photo:JSON) -> (String, String)? {
@@ -70,6 +79,16 @@ class PhotosNetworking {
                 print("success")
             } else {
                 print("failure")
+            }
+        }
+    }
+    
+    func fetchMoreImages() {
+        if (needMore) {
+            needMore = false
+            Alamofire.request(makeRequestUrl(withMethod: "search", page: page + 1)).responseJSON { (response) in
+                let _ = self.parseAndPersist(data: response.data, needPurge: false)
+                self.needMore = true
             }
         }
     }

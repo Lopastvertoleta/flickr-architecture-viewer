@@ -77,4 +77,21 @@ class PhotosCollectionViewController: UICollectionViewController, UICollectionVi
         }
         collectionView.reloadData()
     }
+    
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        //super.scrollViewDidEndDragging(scrollView, willDecelerate: decelerate)
+        
+        let load_distance:CGFloat = -50;
+        var offset:CGFloat
+        var dimension:CGFloat
+        
+        if (expanded) {
+            offset = scrollView.contentOffset.x + scrollView.bounds.size.width - scrollView.contentInset.right;
+            dimension = scrollView.contentSize.width
+        } else {
+            offset = scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom
+            dimension = scrollView.contentSize.height
+        }
+        if offset > dimension + load_distance { PhotosNetworking.shared.fetchMoreImages() }
+    }
 }
