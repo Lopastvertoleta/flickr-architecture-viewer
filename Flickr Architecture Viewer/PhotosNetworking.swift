@@ -11,6 +11,7 @@ import Alamofire
 import SwiftyJSON
 import Realm
 import RealmSwift
+import SDWebImage
 
 class PhotosNetworking {
     private init () {}
@@ -38,14 +39,19 @@ class PhotosNetworking {
         )
     }
     
-    private func parseAndPersist(data: Data?) -> Bool {
+    private func parseAndPersist(data: Data?, needPurge: Bool) -> Bool {
         guard let data = data, let photos = JSON(data)["photos"]["photo"].array, let realm = realm
             else { return false }
         do {
             try realm.write {
+                if (needPurge) { realm.deleteAll() }
                 realm.add(photos.reduce([], { (result, photoJSON) -> [Photo] in
                     guard let urls = self.composeImageURLs(withPhoto: photoJSON)
                         else { return result }
+                    let photoURL = URL(string: urls.1)
+                    if (!SDWebImageManager.shared().cachedImageExists(for: photoURL)){
+                        SDWebImageManager.shared().downloadImage(with: photoURL, options: .retryFailed, progress: { (_, _) in }) { (_, _, _, _, _) in}
+                    }
                     let photo = Photo()
                     photo.thumbURL = urls.0
                     photo.url = urls.1
@@ -60,7 +66,7 @@ class PhotosNetworking {
     
     func fetchImages() {
         Alamofire.request(makeRequestUrl(withMethod: "search", page: 1)).responseJSON { (response) in
-            if self.parseAndPersist(data: response.data) {
+            if self.parseAndPersist(data: response.data, needPurge: true) {
                 print("success")
             } else {
                 print("failure")
