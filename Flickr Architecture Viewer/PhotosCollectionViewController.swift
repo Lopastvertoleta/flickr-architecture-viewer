@@ -10,6 +10,8 @@ import UIKit
 import SDWebImage
 import Realm
 import RealmSwift
+import Alamofire
+import NYTPhotoViewer
 
 private let reuseIdentifier = "PhotoCell"
 
@@ -17,7 +19,6 @@ class PhotosCollectionViewController: UICollectionViewController, UICollectionVi
     
     var notificationToken:NotificationToken?
     var photos:Results<Photo>?
-    var expanded = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,58 +45,67 @@ class PhotosCollectionViewController: UICollectionViewController, UICollectionVi
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PhotoCell
         
-        cell.photoImageView.contentMode = expanded ? .scaleAspectFit : .scaleAspectFill
+        cell.photoImageView.contentMode = .scaleAspectFill
         
         let photo = photos![indexPath.row]
-        cell.photoImageView.sd_setImage(with: URL(string: expanded ? photo.url : photo.thumbURL)!, placeholderImage: #imageLiteral(resourceName: "Placeholder"))
+        cell.photoImageView.sd_setImage(with:
+            URL(string: !NetworkReachabilityManager()!.isReachable && SDWebImageManager.shared().cachedImageExists(for: URL(string: photo.url)) ? photo.url : photo.thumbURL)!,
+            placeholderImage: #imageLiteral(resourceName: "Placeholder")
+        )
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let dimension = UIScreen.main.bounds.width / 2 - 0.5
-        if (expanded) { return collectionView.bounds.size }
+        print(collectionView.frame.size)
+        
+        var dimension:CGFloat
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            dimension = UIDevice.current.orientation.isLandscape ?
+                (UIScreen.main.bounds.width / 4 - 1)
+            :
+                (UIScreen.main.bounds.width / 3 - 1)
+        } else {
+            dimension = UIDevice.current.orientation.isLandscape ?
+                (UIScreen.main.bounds.width / 3 - 1)
+            :
+                (UIScreen.main.bounds.width / 2 - 0.5)
+        }
+
         return CGSize(width: dimension, height: dimension)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return expanded ? 0 : 1
     }
     
     // MARK: UICollectionViewDelegate
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if (self.expanded) {
-            self.expanded = false
-            (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.scrollDirection = .vertical
-            collectionView.isPagingEnabled = false
-            collectionView.layer.backgroundColor = UIColor.white.cgColor
-            collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
-        } else {
-            self.expanded = true
-            (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.scrollDirection = .horizontal
-            collectionView.isPagingEnabled = true
-            collectionView.layer.backgroundColor = UIColor.black.cgColor
-            
-            collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
-        }
-        collectionView.reloadData()
+        let photo = photos![indexPath.row]
+        let loading = LoadingView.showIn(superView: view)
+            SDWebImageManager.shared().downloadImage(with: URL(string: photo.url), options: .retryFailed, progress: { (_, _) in }, completed: { (image, error, type, flag, url) in
+                if let image = image {
+                    let photoToPresent = PresentedPhoto(with: image, data: UIImagePNGRepresentation(image)!)
+                self.present(NYTPhotosViewController(photos: [photoToPresent]), animated: true, completion: nil)
+                } else {
+                    let noPhotoAlert = UIAlertController(title: "No image available", message: "Sorry, bigger image is not available", preferredStyle: .alert)
+                    noPhotoAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(noPhotoAlert , animated: true, completion: nil)
+                }
+                loading.remove()
+                
+            })
     }
     
     override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        //super.scrollViewDidEndDragging(scrollView, willDecelerate: decelerate)
         
-        let load_distance:CGFloat = -50;
-        var offset:CGFloat
-        var dimension:CGFloat
+        let loadDistance:CGFloat = -50;
+        let offset:CGFloat = scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom
+        let dimension:CGFloat = scrollView.contentSize.height
         
-        if (expanded) {
-            offset = scrollView.contentOffset.x + scrollView.bounds.size.width - scrollView.contentInset.right;
-            dimension = scrollView.contentSize.width
-        } else {
-            offset = scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom
-            dimension = scrollView.contentSize.height
-        }
-        if offset > dimension + load_distance { PhotosNetworking.shared.fetchMoreImages() }
+        if offset > dimension + loadDistance { PhotosNetworking.shared.fetchMoreImages() }
+    }
+    
+    override func willRotate(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
+        collectionView?.collectionViewLayout.invalidateLayout()
+        
     }
 }

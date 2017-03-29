@@ -9,6 +9,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FLAnimatedImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>NYTPhotoViewer-NYTPhotoViewer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>NYTPhotoViewer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Flickr Architecture Viewer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -36,6 +51,52 @@
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict/>
+	<dict>
+		<key>445997FCACA05D02E456C9361C085C03</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5D749AA1CA4D9A221DC1915DAF21D09E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>83B5B60C676A8D31829A6AE91CE86A75</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>91C239FF79AE47774E0097A02B3F3912</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B97720AEDDAEC6569BE907F8D81E7EB7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CC535B87534A0C0CB1EC69A61DE2BC6C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D85C3D5A275CC39B0CEEC53C5FA8F233</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FA8BF72CE0B7085DE6DFBA5C6D9233D8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
 </dict>
 </plist>
