@@ -22,18 +22,27 @@ class PhotosCollectionViewController: UICollectionViewController, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView?.refreshControl = UIRefreshControl()
+        collectionView?.refreshControl?.beginRefreshing()
+        collectionView?.refreshControl?.addTarget(self, action: #selector(PhotosCollectionViewController.onRefresh), for: .valueChanged)
+        
         PhotosNetworking.shared.fetchImages()
         photos = try? Realm().objects(Photo.self).sorted(byKeyPath: "added")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         notificationToken = photos?.addNotificationBlock({ [weak self] (_) in
+            self?.collectionView?.refreshControl?.endRefreshing()
             self?.collectionView?.reloadData()
         })
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         notificationToken?.stop()
+    }
+    
+    func onRefresh() {
+        PhotosNetworking.shared.fetchImages()
     }
 
     // MARK: UICollectionViewDataSource
