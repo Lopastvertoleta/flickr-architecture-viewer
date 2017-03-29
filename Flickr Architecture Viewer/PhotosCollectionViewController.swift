@@ -26,13 +26,12 @@ class PhotosCollectionViewController: UICollectionViewController, UICollectionVi
         collectionView?.refreshControl?.beginRefreshing()
         collectionView?.refreshControl?.addTarget(self, action: #selector(PhotosCollectionViewController.onRefresh), for: .valueChanged)
         
-        PhotosNetworking.shared.fetchImages()
+        PhotosNetworking.shared.fetchImages(onFinish: onFinishLoading)
         photos = try? Realm().objects(Photo.self).sorted(byKeyPath: "added")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         notificationToken = photos?.addNotificationBlock({ [weak self] (_) in
-            self?.collectionView?.refreshControl?.endRefreshing()
             self?.collectionView?.reloadData()
         })
     }
@@ -42,10 +41,33 @@ class PhotosCollectionViewController: UICollectionViewController, UICollectionVi
     }
     
     func onRefresh() {
-        PhotosNetworking.shared.fetchImages()
+        PhotosNetworking.shared.fetchImages(onFinish: onFinishLoading)
+    }
+    
+    func onFinishLoading() {
+        self.collectionView?.refreshControl?.endRefreshing()
     }
 
     // MARK: UICollectionViewDataSource
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        var sectionsAmount = 0
+        
+        if photos != nil && photos!.count > 0 || collectionView.refreshControl != nil && collectionView.refreshControl!.isRefreshing
+        {
+            sectionsAmount = 1
+            collectionView.backgroundView = nil
+        } else {
+            let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
+            noDataLabel.text = "We couldn't fetch any photos.\nPlease, check your internet connection and pull to refresh"
+            noDataLabel.numberOfLines = 0
+            noDataLabel.font = UIFont(name: noDataLabel.font.fontName, size: 13)
+            noDataLabel.textColor = UIColor.black
+            noDataLabel.textAlignment = .center
+            collectionView.backgroundView = noDataLabel
+        }
+        return sectionsAmount
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let photos = photos else { return 0 }
         return photos.count
@@ -106,7 +128,7 @@ class PhotosCollectionViewController: UICollectionViewController, UICollectionVi
     
     override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
-        let loadDistance:CGFloat = -50;
+        let loadDistance:CGFloat = -50
         let offset:CGFloat = scrollView.contentOffset.y + scrollView.bounds.size.height - scrollView.contentInset.bottom
         let dimension:CGFloat = scrollView.contentSize.height
         

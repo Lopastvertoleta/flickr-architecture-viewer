@@ -48,9 +48,9 @@ class PhotosNetworking {
         )
     }
     
-    private func parseAndPersist(data: Data?, needPurge: Bool) -> Bool {
+    private func parseAndPersist(data: Data?, needPurge: Bool) {
         guard let data = data, let photos = JSON(data)["photos"]["photo"].array, let realm = realm
-            else { return false }
+            else { return }
         do {
             try realm.write {
                 if (needPurge) { realm.deleteAll() }
@@ -58,7 +58,8 @@ class PhotosNetworking {
                     guard let urls = self.composeImageURLs(withPhoto: photoJSON)
                         else { return result }
                     let photoURL = URL(string: urls.1)
-                    if (!SDWebImageManager.shared().cachedImageExists(for: photoURL)){
+                    
+                    if (!SDWebImageManager.shared().cachedImageExists(for: photoURL)) {
                         SDWebImageManager.shared().downloadImage(with: photoURL, options: .retryFailed, progress: { (_, _) in }) { (_, _, _, _, _) in}
                     }
                     let photo = Photo()
@@ -67,19 +68,13 @@ class PhotosNetworking {
                     return result + [photo]
                 }))
             }
-            return true
-        } catch  {
-            return false
-        }
+        } catch { print(error) }
     }
     
-    func fetchImages() {
+    func fetchImages(onFinish: @escaping () -> Void) {
         Alamofire.request(makeRequestUrl(withMethod: "search", page: 1)).responseJSON { (response) in
-            if self.parseAndPersist(data: response.data, needPurge: true) {
-                print("success")
-            } else {
-                print("failure")
-            }
+            self.parseAndPersist(data: response.data, needPurge: true)
+            onFinish()
         }
     }
     
@@ -87,7 +82,7 @@ class PhotosNetworking {
         if (needMore) {
             needMore = false
             Alamofire.request(makeRequestUrl(withMethod: "search", page: page + 1)).responseJSON { (response) in
-                let _ = self.parseAndPersist(data: response.data, needPurge: false)
+                self.parseAndPersist(data: response.data, needPurge: false)
                 self.needMore = true
             }
         }
